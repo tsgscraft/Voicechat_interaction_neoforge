@@ -47,9 +47,7 @@ public abstract class SculkSensorVibrationUserMixin {
             @Nullable Entity projectileOwner,
             float vibrationDistance
     ) {
-        System.out.println("Vibration received: distance=" + distance + ", originalRadius=" + originalRadius + ", gameEvent=" + gameEvent);
         if (!gameEvent.is(ResourceLocation.parse(VoicechatInteraction.VOICE_GAME_EVENT_NAME))) return VibrationSystem.getRedstoneStrengthForDistance(distance, originalRadius);
-        System.out.println("Using voicechat_interaction_neoforge:voice event, modifying radius based on audio level.");
         Entity player = sourceEntity;
 
         if (player == null || !(player instanceof Player)) {

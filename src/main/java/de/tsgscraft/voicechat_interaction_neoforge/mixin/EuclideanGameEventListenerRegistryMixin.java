@@ -69,7 +69,6 @@ public class EuclideanGameEventListenerRegistryMixin {
             double d0 = BlockPos.containing((Position) optional.get()).distSqr(BlockPos.containing(pos));
             if (listener instanceof VibrationSystem.Listener && context.sourceEntity() instanceof ServerPlayer serverPlayer && registeredName.equals(VoicechatInteraction.VOICE_GAME_EVENT_NAME)) {
                 int radius = AudioUtils.calculateListenerRadius(AudioUtils.getDecibels(serverPlayer), listener.getListenerRadius());
-                serverPlayer.sendSystemMessage(Component.literal("Listener radius: " + radius + " (original: " + listener.getListenerRadius() + ")"));
                 return d0 > (double) (radius * radius) ? Optional.empty() : optional;
             } else {
                 int i = listener.getListenerRadius() * listener.getListenerRadius();
