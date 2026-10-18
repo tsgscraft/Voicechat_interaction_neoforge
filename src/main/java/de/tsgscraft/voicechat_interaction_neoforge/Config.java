@@ -10,6 +10,8 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 public class Config {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
+    private static final ModConfigSpec.BooleanValue enableVolumeScalingConf = BUILDER.comment("If the volume scaling should be enabled").define("enable_volume_scaling", true);
+
     private static final ModConfigSpec.BooleanValue groupInteractionConf = BUILDER.comment("If talking in groups should trigger vibrations").define("group_interaction", false);
     private static final ModConfigSpec.BooleanValue whisperInteractionConf = BUILDER.comment("If whispering should trigger vibrations").define("whisper_interaction", false);
     private static final ModConfigSpec.BooleanValue sneakInteractionConf = BUILDER.comment("If talking while sneaking should trigger vibrations").define("sneak_interaction", false);
@@ -21,6 +23,8 @@ public class Config {
     private static final ModConfigSpec.DoubleValue radiusFunctionInfluenceConf = BUILDER.comment("The vanilla_influence value for the speaking radius function e.g. the z in radius = (x^(db+127)+y)*(vanilla_radius/z) (db range from -127 to 0 the output is clamped)").defineInRange("function.range_function_vanilla_influence", 16.0, 0, Integer.MAX_VALUE);
 
     static final ModConfigSpec SPEC = BUILDER.build();
+
+    public static boolean enableVolumeScaling = true;
 
     public static boolean groupInteraction = false;
     public static boolean whisperInteraction = false;
@@ -38,6 +42,8 @@ public class Config {
             if (!event.getConfig().getModId().equals(VoicechatInteraction.MODID)) {
                 return;
             }
+            enableVolumeScaling = enableVolumeScalingConf.get();
+
             groupInteraction = groupInteractionConf.get();
             whisperInteraction = whisperInteractionConf.get();
             sneakInteraction = sneakInteractionConf.get();

@@ -1,6 +1,7 @@
 package de.tsgscraft.voicechat_interaction_neoforge.mixin.sculkSensor;
 
 import de.tsgscraft.voicechat_interaction_neoforge.AudioUtils;
+import de.tsgscraft.voicechat_interaction_neoforge.Config;
 import de.tsgscraft.voicechat_interaction_neoforge.VoicechatInteraction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -47,7 +48,7 @@ public abstract class SculkSensorVibrationUserMixin {
             @Nullable Entity projectileOwner,
             float vibrationDistance
     ) {
-        if (!gameEvent.is(ResourceLocation.parse(VoicechatInteraction.VOICE_GAME_EVENT_NAME))) return VibrationSystem.getRedstoneStrengthForDistance(distance, originalRadius);
+        if (Config.enableVolumeScaling && !gameEvent.is(ResourceLocation.parse(VoicechatInteraction.VOICE_GAME_EVENT_NAME))) return VibrationSystem.getRedstoneStrengthForDistance(distance, originalRadius);
         Entity player = sourceEntity;
 
         if (player == null || !(player instanceof Player)) {

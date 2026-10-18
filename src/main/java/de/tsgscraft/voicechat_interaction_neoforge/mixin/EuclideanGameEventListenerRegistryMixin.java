@@ -2,6 +2,7 @@ package de.tsgscraft.voicechat_interaction_neoforge.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import de.tsgscraft.voicechat_interaction_neoforge.AudioUtils;
+import de.tsgscraft.voicechat_interaction_neoforge.Config;
 import de.tsgscraft.voicechat_interaction_neoforge.VoicechatInteraction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -67,7 +68,7 @@ public class EuclideanGameEventListenerRegistryMixin {
             return Optional.empty();
         } else {
             double d0 = BlockPos.containing((Position) optional.get()).distSqr(BlockPos.containing(pos));
-            if (listener instanceof VibrationSystem.Listener && context.sourceEntity() instanceof ServerPlayer serverPlayer && registeredName.equals(VoicechatInteraction.VOICE_GAME_EVENT_NAME)) {
+            if (Config.enableVolumeScaling && listener instanceof VibrationSystem.Listener && context.sourceEntity() instanceof ServerPlayer serverPlayer && registeredName.equals(VoicechatInteraction.VOICE_GAME_EVENT_NAME)) {
                 int radius = AudioUtils.calculateListenerRadius(AudioUtils.getDecibels(serverPlayer), listener.getListenerRadius());
                 return d0 > (double) (radius * radius) ? Optional.empty() : optional;
             } else {
